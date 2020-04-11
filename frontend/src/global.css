@@ -1,0 +1,93 @@
+/*Importar Font Robot nos 3 tamanhos(400, 500, 700)*/
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /*Utilizar por padrão a Font tamanho 400, font 14 pixels e utilizar Roboto... Se a Roboto não conseguir ser carregada, utiliza sans-serif*/
+    font: 400 14px Roboto, sans-serif;
+    background: #f0f0f5;
+    /*Melhora a visualização da Font dentro do Google Chrome*/
+    -webkit-flow-smoothing: antialiased;
+}
+
+/*Todos os input, button e textarea Utilizar por padrão a Font tamanho 400, font 18 pixels e utilizar Roboto*/
+input, button, textarea {
+    font: 400 18px Roboto, sans-serif;
+}
+
+button {
+    /*Cursor com Icon para clicar*/
+    cursor: pointer;
+}
+
+/*Em Todo input da Aplicação terá : */
+form input {
+    width: 100%;
+    height: 60px;
+    color: #333;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    padding: 0 24px;
+}
+
+form textarea {
+    width: 100%;
+    /*Pode se Aumentar na Vertical*/
+    resize: vertical;
+    min-height: 140px;
+    height: 60px;
+    color: #333;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    padding: 16px 24px;
+    line-height: 24px;
+}
+
+.button {
+    width: 100%;
+    height: 60px;
+    background: #e02041;
+    border: 0;
+    border-radius: 8px;
+    color: #FFF;
+    font-weight: 700;
+    margin-top: 16px;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 60px;
+    /*Para quando o filter mudar, mude gradualmente*/
+    transition: filter 0.2s;
+}
+
+/*Quando passar o mouse sobre o button escurecer um pouquinho*/
+.button:hover {
+    filter: brightness(90%);
+}
+
+
+.back-link {
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+    color: #41414d;
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.back-link svg {
+    margin-right: 8px;
+}
+
+.back-link:hover {
+    opacity: 0.8;
+}
