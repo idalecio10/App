@@ -6,6 +6,9 @@ const routes = require('./routes');
 //importar módulo de Segurança (cors)
 const cors = require('cors');
 
+//Para identificar os tipos de erros, usando com o Celebrate
+const { errors } = require('celebrate');
+
 //criar variavel que vai armazenar a aplicação(Declaração de app)
 const app = express();
 
@@ -26,6 +29,8 @@ app.use(express.json());
 //app.use(express.json());
 app.use(routes);
 
+//Mostrar o erro certo
+app.use(errors());
 
 //fazer a aplicaçao (app) ouvir a porta 3333... (localhost:3333)
 app.listen(3333);

@@ -1,4 +1,6 @@
 const express = require('express');
+//Importae Celebrate (Joi é biblioteca de validação)
+const { celebrate, Segments, Joi } = require('celebrate');
 
 //serve para utilizar um metodo dele, para gerar uma string aleatorio
 //const crypto = require('crypto');
@@ -38,7 +40,16 @@ routes.get('/ongs', async (request, response) =>{
 */
 
 //(Route(Metodo) para inserir as Ongs) 
-routes.post('/ongs', OngController.create);
+// Celebrate para Validação
+routes.post('/ongs', celebrate({
+    [Segments.BODY]: Joi.object().keys({
+        name: Joi.string().required(),
+        email: Joi.string().required().email(),
+        whatsapp: Joi.number().required().min(10).max(14),
+        city: Joi.string().required(),
+        uf: Joi.string().required().length(2),
+    })
+}), OngController.create);
 
 
 //(Route(Metodo) para inserir) vamos utilizar async para poder utilizar o await lá em baixo
@@ -69,18 +80,42 @@ routes.post('/ongs', async (request, response) => {
 
 
 //(Route(Metodo) para listar os profiles) 
-routes.get('/profile', ProfileController.index);
+routes.get('/profile', celebrate({
+    [Segments.HEADERS]: Joi.object({
+        authorization: Joi.string().required(),
+    }).unknown(),
+}), ProfileController.index);
 
 
 
 //(Route(Metodo) para listar os incidents) 
-routes.get('/incidents', IncidentController.index);
+routes.get('/incidents', celebrate({
+    [Segments.QUERY]: Joi.object().keys({
+        page: Joi.number(),
+    })
+}), IncidentController.index);
 
 //(Route(Metodo) para inserir os incidents) 
-routes.post('/incidents', IncidentController.create);
+routes.post('/incidents', celebrate({
+    [Segments.HEADERS]: Joi.object({
+        authorization: Joi.string().required(),
+    }).unknown(),
+    [Segments.BODY]: Joi.object().keys({
+        name: Joi.string().required(),
+        email: Joi.string().required().email(),
+        whatsapp: Joi.number().required().min(10).max(14),
+        city: Joi.string().required(),
+        uf: Joi.string().required().length(2),
+    })
+}), IncidentController.create);
+//
 
 //(Route(Metodo) para deletar os incidents) 
-routes.delete('/incidents/:id', IncidentController.delete);
+routes.delete('/incidents/:id', celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+        id: Joi.number().required(),
+    })
+}), IncidentController.delete);
 
 
 //exportar variavel de dentro de um arquivo
